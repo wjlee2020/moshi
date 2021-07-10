@@ -8,9 +8,9 @@ const NotFound = lazy(() => import('./pages/not-found'));
 
 function App() {
   return (
-    <div>
-      Hello
-    </div>
+    <Suspense fallback={<p>Loading...</p>}>
+      <p>This is where the content will be</p>
+    </Suspense>
   );
 }
 
