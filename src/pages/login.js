@@ -1,7 +1,10 @@
 import * as ROUTES from '../constants/routes';
 import { Link } from 'react-router-dom';
+import { useDocumentTitle } from '../customHooks/useDocumentTitle';
 
 export default function Login() {
+    // set document title
+    useDocumentTitle('Login - Moshi');
 
     return (
         <div className="container mx-auto flex max-w-screen-md items-center h-screen">
