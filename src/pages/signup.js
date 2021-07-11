@@ -19,8 +19,11 @@ export default function SignUp() {
         e.preventDefault();
         try {
             await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
+            setUsername('');
+            setEmailAddress('');
+            setPassword('');
         } catch (e) {
-
+            setError(e.message);
         }
     }
 
