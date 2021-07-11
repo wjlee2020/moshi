@@ -1,10 +1,13 @@
 import { useContext, useState } from 'react';
 import * as ROUTES from '../constants/routes';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDocumentTitle } from '../customHooks/useDocumentTitle';
 import FirebaseContext from '../context/firebase';
 
 export default function Login() {
+
+    // useHistory router hook
+    const history = useHistory();
 
     //context
     const { firebase } = useContext(FirebaseContext);
@@ -30,6 +33,7 @@ export default function Login() {
             setPassword('');
             setError('');
             console.log('successfully logged in')
+            history.push(ROUTES.DASHBOARD);
         } catch (e) {
             setError(e.message);
         }
