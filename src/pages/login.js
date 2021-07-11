@@ -1,17 +1,39 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import * as ROUTES from '../constants/routes';
 import { Link } from 'react-router-dom';
 import { useDocumentTitle } from '../customHooks/useDocumentTitle';
+import FirebaseContext from '../context/firebase';
 
 export default function Login() {
 
+    //context
+    const { firebase } = useContext(FirebaseContext);
+
+    // state variables
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(true);
+    const [error, setError] = useState('');
+
+    // valid for btn
     const isInvalid = emailAddress === '' || password === '';
 
-    // set document title
+    // set document title via custom hook
     useDocumentTitle('Login - Moshi');
+
+    // user actions
+    // what happens when a user clicks login? -> firebase
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+            setEmailAddress('');
+            setPassword('');
+            setError('');
+            console.log('successfully logged in')
+        } catch (e) {
+            setError(e.message);
+        }
+    }
 
     return (
         <div className="container mx-auto flex max-w-screen-md items-center h-screen">
@@ -25,7 +47,8 @@ export default function Login() {
                     <h1 className="flex justify-center w-full text-lg">
                         Moshi? - Meet, Sell, Connect!
                     </h1>
-                    <form method="post">
+                    {error && <p className="mb-4 text-xs text-red-500">{error}</p>}
+                    <form method="post" onSubmit={handleLogin}>
                         <input
                             required
                             value={emailAddress}
