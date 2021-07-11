@@ -8,7 +8,7 @@ export default function Login() {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(true);
-    const isInvalid = error ? true : false;
+    const isInvalid = emailAddress === '' || password === '';
 
     // set document title
     useDocumentTitle('Login - Moshi');
@@ -22,11 +22,12 @@ export default function Login() {
             </div>
             <div className="flex flex-col w-2/5">
                 <div className="flex flex-col items-center bg-white p-4 border mb-4">
-                    <h1 className="flex justify-center w-full">
-                        Moshi?
+                    <h1 className="flex justify-center w-full text-lg">
+                        Moshi? - Meet, Sell, Connect!
                     </h1>
                     <form method="post">
                         <input
+                            required
                             value={emailAddress}
                             onChange={({ target }) => setEmailAddress(target.value)}
                             placeholder="Email Address"
@@ -34,6 +35,7 @@ export default function Login() {
                             aria-label="Enter your email address"
                             className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2" />
                         <input
+                            required
                             value={password}
                             onChange={({ target }) => setPassword(target.value)}
                             placeholder="Password"
@@ -43,7 +45,7 @@ export default function Login() {
                         <button
                             disabled={isInvalid}
                             type="submit"
-                            className={`bg-blue-500 text-white w-full rounded h-8 font-bold ${isInvalid ? 'opacity-50 cursor-not-allowed' : null}`}>
+                            className={`bg-blue-500 text-white w-full rounded h-8 font-bold ${isInvalid && 'opacity-50 cursor-not-allowed'}`}>
                             Log In
                         </button>
                     </form>
@@ -51,8 +53,8 @@ export default function Login() {
                 <div className="flex justify-center items-center flex-col w-full bg-white p-4 border">
                     <p className="text-sm">
                         Don't have an account?{' '}
-                        <Link to={ROUTES.SIGN_UP} className="font-bold">
-                            Sign up
+                        <Link to={ROUTES.SIGN_UP}>
+                            <button className="font-bold">Sign up</button>
                         </Link>
                     </p>
                 </div>
