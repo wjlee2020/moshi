@@ -1,18 +1,27 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
+import FirebaseContext from '../context/firebase';
 import { useDocumentTitle } from "../customHooks/useDocumentTitle"
 
 export default function SignUp() {
 
+    const { firebase } = useContext(FirebaseContext);
+
+    const [username, setUsername] = useState('');
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const isInvalid = emailAddress === '' || password === '';
 
-    const handleSignUp = () => {
-        console.log('hello')
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        try {
+            await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
+        } catch (e) {
+
+        }
     }
 
     // set document title 
@@ -26,6 +35,14 @@ export default function SignUp() {
                     </h1>
                     {error && <p className="mb-4 text-xs text-red-500">{error}</p>}
                     <form method="post" onSubmit={handleSignUp}>
+                        <input
+                            required
+                            value={username}
+                            onChange={({ target }) => setUsername(target.value)}
+                            placeholder="Username"
+                            type="text"
+                            aria-label="Create a username"
+                            className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2" />
                         <input
                             required
                             value={emailAddress}
