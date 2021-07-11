@@ -1,8 +1,15 @@
+import { useState } from 'react';
 import * as ROUTES from '../constants/routes';
 import { Link } from 'react-router-dom';
 import { useDocumentTitle } from '../customHooks/useDocumentTitle';
 
 export default function Login() {
+
+    const [emailAddress, setEmailAddress] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(true);
+    const isInvalid = error ? true : false;
+
     // set document title
     useDocumentTitle('Login - Moshi');
 
@@ -20,17 +27,23 @@ export default function Login() {
                     </h1>
                     <form method="post">
                         <input
+                            value={emailAddress}
+                            onChange={({ target }) => setEmailAddress(target.value)}
                             placeholder="Email Address"
                             type="text"
                             aria-label="Enter your email address"
                             className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2" />
                         <input
+                            value={password}
+                            onChange={({ target }) => setPassword(target.value)}
                             placeholder="Password"
                             type="password"
                             aria-label="Enter your password"
                             className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2" />
-                        <button type="submit"
-                            className={`bg-blue-500 text-white w-full rounded h-8 font-bold`}>
+                        <button
+                            disabled={isInvalid}
+                            type="submit"
+                            className={`bg-blue-500 text-white w-full rounded h-8 font-bold ${isInvalid ? 'opacity-50 cursor-not-allowed' : null}`}>
                             Log In
                         </button>
                     </form>
