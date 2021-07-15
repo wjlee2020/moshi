@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import FirebaseContext from '../context/firebase';
 import { useDocumentTitle } from "../customHooks/useDocumentTitle"
@@ -7,25 +7,40 @@ import { useDocumentTitle } from "../customHooks/useDocumentTitle"
 export default function SignUp() {
 
     const { firebase } = useContext(FirebaseContext);
+    const history = useHistory();
 
     const [username, setUsername] = useState('');
+    const [fullName, setFullName] = useState('');
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const isInvalid = emailAddress === '' || password === '';
 
+    const validateEmailAddress = (email) => {
+        let emailFormat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+        if (email.value.match(emailFormat)) {
+            setEmailAddress(email.value);
+        } else {
+            setError('please make sure to have a proper email format')
+        }
+    }
+
     const handleSignUp = async (e) => {
         e.preventDefault();
+        validateEmailAddress(emailAddress);
         try {
             await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
             setUsername('');
+            setFullName('');
             setEmailAddress('');
             setPassword('');
+            history.push(ROUTES.DASHBOARD);
         } catch (e) {
             setError(e.message);
         }
     }
+
 
     // set document title 
     useDocumentTitle('Sign Up - Moshi')
@@ -41,15 +56,23 @@ export default function SignUp() {
                         <input
                             required
                             value={username}
-                            onChange={({ target }) => setUsername(target.value)}
+                            onChange={({ target }) => setUsername(target.value.toLowerCase())}
                             placeholder="Username"
                             type="text"
                             aria-label="Create a username"
                             className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2" />
                         <input
                             required
+                            value={fullName}
+                            onChange={({ target }) => setFullName(target.value.toLowerCase())}
+                            placeholder="Full name"
+                            type="text"
+                            aria-label="Enter your full name"
+                            className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2" />
+                        <input
+                            required
                             value={emailAddress}
-                            onChange={({ target }) => setEmailAddress(target.value)}
+                            onChange={({ target }) => setEmailAddress(target.value.toLowerCase())}
                             placeholder="Email Address"
                             type="text"
                             aria-label="Enter your email address"
