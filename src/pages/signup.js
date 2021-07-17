@@ -44,6 +44,7 @@ export default function SignUp() {
                 fullName,
                 emailAddress: emailAddress.toLowerCase(),
                 following: ['ky3EcUVu0fVBRHWZB3iwd64VXKf1'],
+                followers: [],
                 dateCreated: Date.now()
             });
             history.push(ROUTES.DASHBOARD);
