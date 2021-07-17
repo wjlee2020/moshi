@@ -29,13 +29,13 @@ export default function Login() {
         e.preventDefault();
         try {
             await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
-            setEmailAddress('');
-            setPassword('');
-            setError('');
             console.log('successfully logged in')
             history.push(ROUTES.DASHBOARD);
         } catch (e) {
             setError(e.message);
+            setEmailAddress('');
+            setPassword('');
+            setError('');
         }
     }
 

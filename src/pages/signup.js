@@ -15,7 +15,7 @@ export default function SignUp() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const isInvalid = emailAddress === '' || password === '';
+    const isInvalid = username === '' || fullName === '' || emailAddress === '' || password === '';
 
     const validateEmailAddress = (email) => {
         let emailFormat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
@@ -28,27 +28,42 @@ export default function SignUp() {
 
     const handleSignUp = async (e) => {
         e.preventDefault();
-        validateEmailAddress(emailAddress);
+        // validateEmailAddress(emailAddress);
         try {
-            await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
+            // create and get the response to update profile
+            const createdUserResult = await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
+            console.log(createdUserResult);
+            await createdUserResult.user.updateProfile({
+                displayName: username
+            });
+
+            // add to firestore collection
+            await firebase.firestore().collection('users').add({
+                userId: createdUserResult.user.uid,
+                username: username.toLowerCase(),
+                fullName,
+                emailAddress: emailAddress.toLowerCase(),
+                following: ['ky3EcUVu0fVBRHWZB3iwd64VXKf1'],
+                dateCreated: Date.now()
+            });
+            history.push(ROUTES.DASHBOARD);
+        } catch (e) {
             setUsername('');
             setFullName('');
             setEmailAddress('');
             setPassword('');
-            history.push(ROUTES.DASHBOARD);
-        } catch (e) {
             setError(e.message);
         }
     }
 
-
     // set document title 
     useDocumentTitle('Sign Up - Moshi')
+
     return (
         <div className="container flex mx-auto max-w-xs items-center h-screen">
             <div className="flex flex-col">
                 <div className="flex flex-col items-center bg-white p-4 border mb-4">
-                    <h1 className="flex items-center justify-center w-full text-lg">
+                    <h1 className="flex items-center justify-center w-full text-lg mb-3">
                         Moshi? - Meet, Sell, Connect!
                     </h1>
                     {error && <p className="mb-4 text-xs text-red-500">{error}</p>}
@@ -64,7 +79,7 @@ export default function SignUp() {
                         <input
                             required
                             value={fullName}
-                            onChange={({ target }) => setFullName(target.value.toLowerCase())}
+                            onChange={({ target }) => setFullName(target.value)}
                             placeholder="Full name"
                             type="text"
                             aria-label="Enter your full name"
@@ -74,7 +89,7 @@ export default function SignUp() {
                             value={emailAddress}
                             onChange={({ target }) => setEmailAddress(target.value.toLowerCase())}
                             placeholder="Email Address"
-                            type="text"
+                            type="email"
                             aria-label="Enter your email address"
                             className="text-sm w-full mr-3 py-5 px-4 h-2 border rounded mb-2" />
                         <input
