@@ -2,29 +2,27 @@ import { Link, useHistory } from "react-router-dom"
 import * as ROUTES from '../constants/routes';
 import { useContext, useState } from "react"
 import FirebaseContext from "../context/firebase"
+import UserContext from "../context/user";
 
 export default function Header() {
     const [error, setError] = useState('');
 
     const history = useHistory();
 
+    const { user } = useContext(UserContext)
     const { firebase } = useContext(FirebaseContext);
+    // console.log(user)
 
     const handleSignOut = async (e) => {
         e.preventDefault();
         try {
             await firebase.auth().signOut();
-            history.push(ROUTES.LOGIN)
+            // history.push(ROUTES.LOGIN) 
         } catch (e) {
             let errMsg = e.message;
             setError(errMsg);
         }
     }
-
-    const user = {
-        displayName: "dali"
-    };
-    // const user = null;
 
     return (
         <div className="h-22 bg-white p-5 border-b mb-8">
@@ -47,13 +45,13 @@ export default function Header() {
                                 <Link to={`/p/${user.displayName}`}>
                                     <img
                                         className="rounded-full h-8 w-8 flex mr-6"
-                                        src={`/images/avatars/${user.displayName}.jpg`} alt='pic' />
+                                        src={`/images/avatars/${user.displayName}.jpg`} alt={`${user.displayName} profile photo`} />
                                 </Link>
                                 <button
                                     aria-label="sign out"
                                     onClick={handleSignOut}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                     </svg>
                                 </button>
 
@@ -64,7 +62,7 @@ export default function Header() {
                                     aria-label='to log in screen'>
                                     <Link to={ROUTES.LOGIN}>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="w-8 mr-6 text-black-light cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                                         </svg>
                                     </Link>
                                 </button>
