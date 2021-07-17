@@ -48,7 +48,7 @@ export default function Login() {
             </div>
             <div className="flex flex-col w-2/5">
                 <div className="flex flex-col items-center bg-white p-4 border mb-4">
-                    <h1 className="flex justify-center w-full text-lg">
+                    <h1 className="flex justify-center w-full text-lg mb-3">
                         Moshi? - Meet, Sell, Connect!
                     </h1>
                     {error && <p className="mb-4 text-xs text-red-500">{error}</p>}
