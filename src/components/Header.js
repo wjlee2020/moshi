@@ -6,10 +6,17 @@ import FirebaseContext from "../context/firebase"
 export default function Header() {
 
     return (
-        <div className="bg-gray-100 p-5">
-            <Link to={ROUTES.DASHBOARD}>
-                <button className="text-2xl font-bold rounded p-1 px-2 bg-blue-200 hover:bg-blue-400 hover:text-white">Moshi Moshi</button>
-            </Link>
+        <div className="h-16 bg-white p-5 border-b mb-8">
+            <div className="container mx-auto max-width-lg h-full">
+                <div className="flex justify-between h-full">
+                    <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
+                        <Link to={ROUTES.DASHBOARD} aria-label="To dashboard">
+                            {/* put logo here later */}
+                            <h1 className="font-bold">Moshi Moshi</h1>
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
