@@ -33,7 +33,6 @@ export default function Login() {
             history.push(ROUTES.DASHBOARD);
         } catch (error) {
             setError(error.message);
-            setEmailAddress('');
             setPassword('');
         }
     }
