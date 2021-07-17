@@ -6,11 +6,15 @@ import Sidebar from '../components/sidebar'
 export default function Dashboard() {
     // set document title
     useDocumentTitle('Dashboard - Moshi');
+
     return (
-        <div>
+        <div className="bg-gray-200">
             <Header />
-            <Sidebar />
-            <Timeline />
+            <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
+                <Sidebar />
+                <Timeline />
+
+            </div>
         </div>
     )
 }
