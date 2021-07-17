@@ -24,6 +24,7 @@ export default function Header() {
     const user = {
         displayName: "dali"
     };
+    // const user = null;
 
     return (
         <div className="h-22 bg-white p-5 border-b mb-8">
@@ -35,31 +36,36 @@ export default function Header() {
                             <h1 className="font-bold">Moshi Moshi</h1>
                         </Link>
                     </div>
-                    <div className="container h-full w-auto flex justify-between align-items">
+                    <div className="container h-full w-auto flex justify-between items-center align-items">
                         {user ? (
                             <>
+                                <Link to={ROUTES.DASHBOARD} aria-label="home">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 mr-6 text-black-light cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                                    </svg>
+                                </Link>
+                                <Link to={`/p/${user.displayName}`}>
+                                    <img
+                                        className="rounded-full h-8 w-8 flex mr-6"
+                                        src={`/images/avatars/${user.displayName}.jpg`} alt='pic' />
+                                </Link>
                                 <button
                                     aria-label="sign out"
-                                    onClick={handleSignOut}
-                                    className="bg-blue-500 text-xs hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    Sign Out
+                                    onClick={handleSignOut}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                    </svg>
                                 </button>
-                                <div>
-                                    <Link to={`/p/${user.displayName}`}>
-                                        <img
-                                            className="rounded-full h-8 w-8 flex ml-2"
-                                            src={`/images/avatars/${user.displayName}.jpg`} alt='pic' />
-                                    </Link>
-                                </div>
 
                             </>
                         ) : (
                             <>
                                 <button
-                                    aria-label='to log in screen'
-                                    className="bg-blue-500 text-xs hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    aria-label='to log in screen'>
                                     <Link to={ROUTES.LOGIN}>
-                                        Log In
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-8 mr-6 text-black-light cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                        </svg>
                                     </Link>
                                 </button>
                                 <button
