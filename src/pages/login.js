@@ -31,11 +31,10 @@ export default function Login() {
             await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
             console.log('successfully logged in')
             history.push(ROUTES.DASHBOARD);
-        } catch (e) {
-            setError(e.message);
+        } catch (error) {
+            setError(error.message);
             setEmailAddress('');
             setPassword('');
-            setError('');
         }
     }
 

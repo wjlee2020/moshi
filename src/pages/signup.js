@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import FirebaseContext from '../context/firebase';
 import { useDocumentTitle } from "../customHooks/useDocumentTitle"
+import { doesUserNameExist } from '../services/firebase';
 
 export default function SignUp() {
 
@@ -17,43 +18,38 @@ export default function SignUp() {
 
     const isInvalid = username === '' || fullName === '' || emailAddress === '' || password === '';
 
-    const validateEmailAddress = (email) => {
-        let emailFormat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-        if (email.value.match(emailFormat)) {
-            setEmailAddress(email.value);
-        } else {
-            setError('please make sure to have a proper email format')
-        }
-    }
-
     const handleSignUp = async (e) => {
         e.preventDefault();
-        // validateEmailAddress(emailAddress);
-        try {
-            // create and get the response to update profile
-            const createdUserResult = await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
-            console.log(createdUserResult);
-            await createdUserResult.user.updateProfile({
-                displayName: username
-            });
+        const usernameExists = await doesUserNameExist(username);
+        if (!usernameExists.length) {
+            try {
+                // create and get the response to update profile
+                const createdUserResult = await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
+                console.log(createdUserResult);
+                await createdUserResult.user.updateProfile({
+                    displayName: username
+                });
 
-            // add to firestore collection
-            await firebase.firestore().collection('users').add({
-                userId: createdUserResult.user.uid,
-                username: username.toLowerCase(),
-                fullName,
-                emailAddress: emailAddress.toLowerCase(),
-                following: ['ky3EcUVu0fVBRHWZB3iwd64VXKf1'],
-                followers: [],
-                dateCreated: Date.now()
-            });
-            history.push(ROUTES.DASHBOARD);
-        } catch (e) {
+                // add to firestore collection
+                await firebase.firestore().collection('users').add({
+                    userId: createdUserResult.user.uid,
+                    username: username.toLowerCase(),
+                    fullName,
+                    emailAddress: emailAddress.toLowerCase(),
+                    following: ['ky3EcUVu0fVBRHWZB3iwd64VXKf1'],
+                    followers: [],
+                    dateCreated: Date.now()
+                });
+                setError('');
+                history.push(ROUTES.DASHBOARD);
+            } catch (e) {
+                setFullName('');
+                setError(e.message);
+            }
+        } else {
             setUsername('');
             setFullName('');
-            setEmailAddress('');
-            setPassword('');
-            setError(e.message);
+            setError('Username already exists. Please choose a different username');
         }
     }
 
@@ -72,7 +68,7 @@ export default function SignUp() {
                         <input
                             required
                             value={username}
-                            onChange={({ target }) => setUsername(target.value.toLowerCase())}
+                            onChange={({ target }) => setUsername(target.value.toLowerCase().replace(/\s+/g, ''))}
                             placeholder="Username"
                             type="text"
                             aria-label="Create a username"
@@ -105,7 +101,7 @@ export default function SignUp() {
                             disabled={isInvalid}
                             type="submit"
                             className={`bg-blue-500 text-white w-full rounded h-8 font-bold hover:bg-blue-700 ${isInvalid && 'opacity-50 cursor-not-allowed'}`}>
-                            Log In
+                            Sign Up
                         </button>
                     </form>
                 </div>
