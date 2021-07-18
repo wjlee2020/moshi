@@ -1,5 +1,6 @@
 import Skeleton from 'react-loading-skeleton';
 import useFollowedUsersPhotos from '../customHooks/useFollowedUsersPhotos';
+import Post from './post';
 
 export default function Timeline() {
     const { photos } = useFollowedUsersPhotos();
@@ -11,7 +12,7 @@ export default function Timeline() {
                 <Skeleton count={5} width={640} height={500} className="mb-5" /> :
                 (<>
                     {photos.map((photo) => (
-                        <img key={photo.docId} src={photo.imageSrc} alt={photo.caption} />
+                        <Post key={photo.docId} content={photo} />
                     ))}
                 </>)
             }

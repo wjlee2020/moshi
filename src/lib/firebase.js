@@ -1,3 +1,7 @@
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+
 import { seedDatabase } from "../seed";
 
 const config = {
@@ -10,9 +14,8 @@ const config = {
     appId: "1:1061578372974:web:38995a8572d0bad920b37f"
 };
 
-const firebase = window.firebase.initializeApp(config);
-const { FieldValue } = window.firebase.firestore();
+firebase.initializeApp(config);
 
-// seedDatabase(firebase);
+const { FieldValue } = firebase.firestore;
 
 export { firebase, FieldValue };
