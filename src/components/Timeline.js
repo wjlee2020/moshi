@@ -7,8 +7,9 @@ export default function Timeline() {
 
     return (
         <div className="container col-span-2">
-            {photos ? photos.map((photo, i) => (<p key={i}>I'm the photos</p>)) :
-                <Skeleton count={5} width={640} height={500} className="mb-5" />}
+            {!photos ?
+                <Skeleton count={5} width={640} height={500} className="mb-5" /> :
+                <p>Follow people to see photos!</p>}
         </div>
     )
 }

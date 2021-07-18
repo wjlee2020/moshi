@@ -5,7 +5,6 @@ import { getUserByUserId } from '../services/firebase';
 export default function useUser() {
     const [activeUser, setActiveUser] = useState({})
     const { user } = useContext(UserContext);
-    console.log(user)
 
     // pull out user info
     useEffect(() => {
