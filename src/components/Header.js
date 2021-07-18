@@ -7,9 +7,8 @@ import UserContext from "../context/user";
 export default function Header() {
     const [error, setError] = useState('');
 
-    const history = useHistory();
-
     const { user } = useContext(UserContext)
+
     const { firebase } = useContext(FirebaseContext);
     // console.log(user)
 
