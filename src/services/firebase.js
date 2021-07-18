@@ -38,5 +38,20 @@ export async function getUserFollowedPhotos(userId, followingUserIds) {
     }));
 
     console.log(userFollowedPhotos);
-    return userFollowedPhotos;
+
+    const photosWithUserDetails = await Promise.all(
+        userFollowedPhotos.map(async (photo) => {
+            console.log(photo);
+            let userLikedPhoto = false;
+            if (photo.likes.includes(userId)) {
+                userLikedPhoto = true;
+            }
+            const user = await getUserByUserId(photo.userId);
+            console.log(user)
+            // there's only one
+            const username = user[0].username;
+            return { username, ...photo, userLikedPhoto };
+        })
+    )
+    return photosWithUserDetails;
 }

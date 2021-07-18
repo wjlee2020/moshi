@@ -9,7 +9,12 @@ export default function Timeline() {
         <div className="container col-span-2">
             {!photos ?
                 <Skeleton count={5} width={640} height={500} className="mb-5" /> :
-                <p>Follow people to see photos!</p>}
+                (<>
+                    {photos.map((photo, i) => (
+                        <img key={i} src={photo.imageSrc} alt={photo.caption} />
+                    ))}
+                </>)
+            }
         </div>
     )
 }
