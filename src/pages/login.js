@@ -40,7 +40,7 @@ export default function Login() {
     return (
         <div className="container mx-auto flex max-w-screen-md items-center h-screen">
             <div className="flex w-3/5 h-1/2">
-                <img className="w-4/5 rounded-lg"
+                <img className="w-4/5 rounded-lg object-cover"
                     src="https://images.unsplash.com/photo-1623323287571-1401c5ac5142?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
                     alt='phone' />
             </div>
