@@ -16,6 +16,7 @@ export default function Post({ content }) {
     return (
         //rounded, border bg white border gray mb-16
         <div className="border rounded bg-white border-gray-200 mb-16 col-span-4">
+            <Header username={content.username} />
             <Image src={content.imageSrc} alt={content.caption} />
             <Actions
                 docId={content.docId}
