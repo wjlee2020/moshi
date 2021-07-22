@@ -6,6 +6,7 @@ import Image from './image';
 import { useRef } from 'react';
 
 export default function Post({ content }) {
+    console.log(content)
     const ref = useRef(null);
 
     const handleFocus = () => {
