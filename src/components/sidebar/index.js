@@ -1,5 +1,6 @@
 import useUser from "../../customHooks/useUser"
 import User from './user';
+import Suggestions from "./suggestions";
 
 export default function Sidebar() {
     // default of empty obj when we don't have an activeUser (a user signed in)
@@ -10,6 +11,7 @@ export default function Sidebar() {
             <User 
                 username={username} 
                 fullName={fullName} />
+            <Suggestions userId={userId} />
         </div>
     )
 }
