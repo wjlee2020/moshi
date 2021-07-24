@@ -1,4 +1,5 @@
 //showing own profile
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 
@@ -24,4 +25,4 @@ const User = ({username, fullName}) => {
     )
 };
 
-export default User;
+export default memo(User);
