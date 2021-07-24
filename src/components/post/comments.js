@@ -10,6 +10,7 @@ export default function Comments({docId, comments: allComments, posted, commentI
         <>
             <div className="p-4 pt-1 pb-4">
                 {comments.length >= 3 && (
+                    // need to build this view all comments section
                     <p className="text-sm text-gray-500 mb-1 cursor-pointer">View All {comments.length} comments</p>
                 )}
                 {comments.slice(0, 3).map((comment, i) => (
