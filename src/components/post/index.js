@@ -1,5 +1,6 @@
 import Header from './header';
 import Actions from './actions';
+import Comments from './comments';
 import AddComment from './addComment';
 import Footer from './footer';
 import Image from './image';
@@ -7,6 +8,7 @@ import { useRef } from 'react';
 
 export default function Post({ content }) {
     console.log(content)
+    // commentinput for ref
     const ref = useRef(null);
 
     const handleFocus = () => {
@@ -24,6 +26,12 @@ export default function Post({ content }) {
                 likedPhotos={content.userLikedPhoto}
                 handleFocus={handleFocus} />
             <Footer caption={content.caption} username={content.username} />
+            <Comments 
+                docId={content.docId}
+                comments={content.comments}
+                posted={content.dateCreated}
+                commentInput={ref}
+            />
         </div>
     )
 }

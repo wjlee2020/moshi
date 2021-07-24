@@ -6,8 +6,8 @@ export default function Header({ username }) {
             <div className="flex items-center">
                 <Link to={`/p/${username}`}>
                     <img className="rounded-full h-8 w-8 mr-3" src={`images/avatars/${username}.jpg`} alt="profile" />
+                    <p className="font-bold">{username}</p>
                 </Link>
-                <p className="font-bold">{username}</p>
             </div>
         </div>
     )
