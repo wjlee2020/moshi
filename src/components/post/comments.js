@@ -12,7 +12,7 @@ export default function Comments({docId, comments: allComments, posted, commentI
                 {comments.length >= 3 && (
                     <p className="text-sm text-gray-500 mb-1 cursor-pointer">View All {comments.length} comments</p>
                 )}
-                {comments.slice(0, 3).map((comment) => (
+                {comments.slice(0, 3).map((comment, i) => (
                     <p className="mb-1" key={`${comment.comment}-${comment.displayName}`}>
                         <Link to={`/p/${comment.displayName}`}>
                             <span className="mr-1 font-bold">{comment.displayName}</span>
