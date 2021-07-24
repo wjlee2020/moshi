@@ -8,6 +8,7 @@ import { useRef } from 'react';
 
 export default function Post({ content }) {
     console.log(content)
+    
     // commentinput for ref
     const ref = useRef(null);
 
