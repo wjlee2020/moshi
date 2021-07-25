@@ -1,9 +1,18 @@
 import { useState, useEffect, memo } from "react";
 import Skeleton from "react-loading-skeleton";
+import SuggestedProfile from "./suggestedProfile";
 import { getSuggestedProfiles } from '../../services/firebase';
 
 const Suggestions = ({ userId }) => {
-    const [profiles, setProfiles] = useState(null);
+    const [profiles, setProfiles] = useState([
+        {
+            userDocId: 1,
+            username: "dali",
+            profileId: "2",
+            userId: '3'
+        }
+    ]);
+    console.log(profiles)
 
     useEffect(() => {
         async function suggestProfiles() {
@@ -15,13 +24,23 @@ const Suggestions = ({ userId }) => {
         // }
     }, [userId])
 
-    return  (
+    return (
         <div>
             {!profiles ? (
                 <Skeleton count={1} height={150} className="mt-5" />
             ) : (
                 profiles.length > 0 ? (
-                    <p>profiles here</p>
+                    <div className="grid">
+                        {profiles.map((profile, i) => (
+                            <SuggestedProfile
+                                key={i}
+                                userDocId={profile.docId}
+                                username={profile.username}
+                                profileId={profile.userId}
+                                userId={userId}
+                            />
+                        ))}
+                    </div>
                 ) : (
                     null
                 )
