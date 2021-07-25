@@ -37,6 +37,7 @@ const Suggestions = ({ userId }) => {
             ) : (
                 profiles.length > 0 ? (
                     <div className="grid">
+                        <p>suggestions for you</p>
                         {profiles.map((profile, i) => (
                             <SuggestedProfile
                                 key={i}
