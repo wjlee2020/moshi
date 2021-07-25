@@ -10,6 +10,12 @@ const Suggestions = ({ userId }) => {
             username: "dali",
             profileId: "2",
             userId: '3'
+        },
+        {
+            userDocId: 1,
+            username: "orwell",
+            profileId: "2",
+            userId: '3'
         }
     ]);
     console.log(profiles)
