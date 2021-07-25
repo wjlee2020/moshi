@@ -60,18 +60,32 @@ export async function getUserFollowedPhotos(userId, followingUserIds) {
 export async function getSuggestedProfiles(userId) {
     const result = await firebase
         .firestore()
-        .collection('users').limit(10)
+        .collection('users')
+        .limit(10)
         .get();
 
-    const [{ following: userFollowing = [] }] = result.docs
-        .map((user) => user.data())
-        .filter((profile) => profile.userId === userId);
-
-    //check: result.docs brings back all users in the db, then filter out the active userId
-    // const random = result.docs.map((user) => user.data())
-    // console.log(random)
-
-    return result.docs.map((user) => ({ ...user.data(), docId: user.id }))
-        .filter((profile) => profile.userId !== userId && !userFollowing.includes(profile.userId));
-
+    const [{ following }] = await getUserByUserId(userId);
+    return result.docs
+        .map((user) => ({ ...user.data(), docId: user.id }))
+        .filter((profile) => profile.userId !== userId && !following.includes(profile.userId));
 }
+
+// export async function getSuggestedProfiles(userId) {
+//     const result = await firebase
+//         .firestore()
+//         .collection('users')
+//         .limit(10)
+//         .get();
+
+//     const [{ following: userFollowing = [] }] = result.docs
+//         .map((user) => user.data())
+//         .filter((profile) => profile.userId === userId);
+
+//     //check: result.docs brings back all users in the db, then filter out the active userId
+//     // const random = result.docs.map((user) => user.data())
+//     // console.log(random)
+
+//     return result.docs.map((user) => ({ ...user.data(), docId: user.id }))
+//         .filter((profile) => profile.userId !== userId && !userFollowing.includes(profile.userId));
+
+// }
