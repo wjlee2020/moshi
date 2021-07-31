@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getUserByUserId, updateFollowedUserFollowers, updateUserFollowing } from '../../services/firebase';
 
 export default function SuggestedProfile({ userDocId, username, profileId, userId }) {
     console.log(username);
@@ -8,6 +9,10 @@ export default function SuggestedProfile({ userDocId, username, profileId, userI
 
     const handleFollowUser = async () => {
         setFollowed(true);
+
+        const [{docId}] = await getUserByUserId(userId);
+        await updateUserFollowing(docId, profileId);
+        await updateFollowedUserFollowers(userDocId, userId)
     }
 
     return !followed ? (
