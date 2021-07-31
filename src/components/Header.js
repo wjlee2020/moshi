@@ -6,7 +6,7 @@ import UserContext from "../context/user";
 
 export default function Header() {
     const [error, setError] = useState('');
-
+    const history = useHistory();
     const { user } = useContext(UserContext)
 
     const { firebase } = useContext(FirebaseContext);
@@ -16,7 +16,7 @@ export default function Header() {
         e.preventDefault();
         try {
             await firebase.auth().signOut();
-            // history.push(ROUTES.LOGIN) 
+            history.push(ROUTES.LOGIN) 
         } catch (e) {
             let errMsg = e.message;
             setError(errMsg);
