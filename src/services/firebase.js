@@ -109,3 +109,7 @@ export async function updateFollowedUserFollowers(docId, followingUserId, isFoll
             following: isFollowingProfile ? FieldValue.arrayRemove(followingUserId) : FieldValue.arrayUnion(followingUserId)
         });
 }
+
+export async function getUserByUsername(username) {
+
+}
