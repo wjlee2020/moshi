@@ -1,7 +1,10 @@
 
 
-export default function Photos({photos}) {
+export default function Photos({photosCollection}) {
+    console.log(photosCollection)
     return (
-        <p>I'm the photos</p>
+        <div className="border border-black">
+            hello this is the photos
+        </div>
     )
 }
