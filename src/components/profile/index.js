@@ -1,7 +1,13 @@
 import { useEffect } from 'react';
+import Header from './header';
+import Photos from './photos';
 
-export default function Profile({ username }) {
+export default function UserProfile({ username }) {
+    console.log(username)
 return (
-    <p>Profile from profile index</p>
+    <>
+        <Header />
+        <Photos />
+    </>
 )
 }
