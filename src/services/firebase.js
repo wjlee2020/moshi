@@ -111,5 +111,15 @@ export async function updateFollowedUserFollowers(docId, followingUserId, isFoll
 }
 
 export async function getUserByUsername(username) {
+    const result = await firebase
+        .firestore()
+        .collection('users')
+        .where('username', '==', username)
+        .get()
 
+        const user = result.docs.map(item => ({
+            ...item.data()
+        }));
+        console.log(user)
+        return user.length > 0 ? user : false ;
 }
