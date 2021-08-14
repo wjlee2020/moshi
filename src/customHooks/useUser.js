@@ -21,6 +21,6 @@ export default function useUser() {
         // if user changes, rerender
     }, [user]);
     // return activeUser as user to the hook
-    console.log(activeUser)
+    // console.log(activeUser)
     return { activeUser };
 }

@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import useUser from "../../customHooks/useUser";
+import Skeleton from 'react-loading-skeleton';
 
-export default function Header({ username, profile, photosCount, followerCount, setFollowerCount }) {
+export default function Header({
+    username,
+    profile: { docId: profileDocId, userId: profileUserId, fullName, following = 0 },
+    photosCount,
+    followerCount,
+    setFollowerCount }) {
     // console.log(profile)
     const { activeUser: user } = useUser();
     // console.log(user);
@@ -29,6 +35,23 @@ export default function Header({ username, profile, photosCount, followerCount, 
                             onClick={() => console.log('button clicked')}>
                             {isFollowingProfile ? "Unfollow" : "Follow"}
                         </button>
+                    )}
+                </div>
+                <div className="container flex mt-4">
+                    {followerCount === undefined || following === undefined ? (
+                        <Skeleton count={1} width={677} height={24} />
+                    ) : (
+                        <>
+                            <p className="mr-10 flex flex-col items-center">
+                                <span className="font-bold">{photosCount}</span> photos
+                            </p>
+                            <p className="mr-10 flex flex-col items-center">
+                                <span className="font-bold">{followerCount}</span> {followerCount === 1 ? 'follower' : 'followers'}
+                            </p>
+                            <p className="mr-10 flex flex-col items-center">
+                                <span className="font-bold">{following.length}</span> following
+                            </p>
+                        </>
                     )}
                 </div>
             </div>
