@@ -117,11 +117,11 @@ export async function getUserByUsername(username) {
         .where('username', '==', username)
         .get()
 
-        const user = result.docs.map(item => ({
-            ...item.data()
-        }));
-        // console.log(user)
-        return user.length > 0 ? user : false;
+    const user = result.docs.map(item => ({
+        ...item.data()
+    }));
+    // console.log(user)
+    return user.length > 0 ? user : false;
 }
 
 export async function getUserIdByUsername(username) {
@@ -130,13 +130,13 @@ export async function getUserIdByUsername(username) {
         .collection('users')
         .where('username', '==', username)
         .get();
-        
+
     const [{ userId = null }] = result.docs.map((item) => ({
         ...item.data(),
     }));
 
-    console.log(userId)
-    
+    // console.log(userId)
+
     return userId;
 }
 
@@ -147,11 +147,11 @@ export async function getUserPhotosByUsername(username) {
         .collection('photos')
         .where('userId', '==', userId)
         .get();
-        
+
     const photos = result.docs.map((item) => ({
         ...item.data(),
         docId: item.id
     }));
-    
+
     return photos;
 }

@@ -5,10 +5,11 @@ export default function Photos({ photosCollection }) {
     // console.log(photosCollection)
     const [hoveredPhoto, setHoveredPhoto] = useState(false)
     const [imgLikes, setImgLikes] = useState('');
-    console.log(hoveredPhoto);
+    // console.log(hoveredPhoto);
 
     function enter(photoInfo) {
-        console.log(photoInfo)
+        // console.log(photoInfo)
+        // console.log(photosCollection)
         setImgLikes(photoInfo.likes.length)
         setHoveredPhoto(true)
         // setIsHovered(true);
@@ -28,8 +29,13 @@ export default function Photos({ photosCollection }) {
                     </>
                 ) : photosCollection && photosCollection.length > 0 ? (photosCollection &&
                     photosCollection.map((photo, index) => (
-                        <div key={index} >
-                            <img className="rounded-md" src={photo.imageSrc} alt={photo.caption} onMouseEnter={() => enter(photo)} onMouseLeave={() => setHoveredPhoto(false)} />
+                        <div key={index} className="relative group" >
+                            <img
+                                onMouseEnter={() => enter(photo)}
+                                className="rounded-md"
+                                src={photo.imageSrc}
+                                alt={photo.caption}
+                            />
                         </div>
                     ))
                 ) : null}

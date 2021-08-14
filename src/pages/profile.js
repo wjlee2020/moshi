@@ -15,7 +15,7 @@ export default function Profile() {
     useEffect(() => {
         async function checkUserExistsToLoadProfile() {
             const doesUserExist = await getUserByUsername(username)
-            if(!doesUserExist) {
+            if (!doesUserExist) {
                 history.push(ROUTES.NOT_FOUND)
             } else {
                 setUserExists(true);
@@ -23,7 +23,7 @@ export default function Profile() {
         }
         checkUserExistsToLoadProfile();
     }, [username])
-    
+
     // set document title
     useDocumentTitle('Profile - Moshi')
 
@@ -35,4 +35,4 @@ export default function Profile() {
             </div>
         </div>
     ) : null
-} 
+}
