@@ -54,6 +54,13 @@ export default function Header({
                         </>
                     )}
                 </div>
+                <div className="container">
+                    {fullName ? (
+                        <p className="font-bold mt-2">{fullName}</p>
+                    ) : (
+                        <Skeleton count={1} width={255} height={24} />
+                    )}
+                </div>
             </div>
         </div>
     )
