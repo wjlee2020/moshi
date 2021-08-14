@@ -54,9 +54,9 @@ export default function Header({
                         </>
                     )}
                 </div>
-                <div className="container">
+                <div className="container mt-3">
                     {fullName ? (
-                        <p className="font-bold mt-2">{fullName}</p>
+                        <p className="font-bold">{fullName}</p>
                     ) : (
                         <Skeleton count={1} width={255} height={24} />
                     )}
