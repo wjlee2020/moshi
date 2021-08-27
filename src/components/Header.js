@@ -3,11 +3,14 @@ import * as ROUTES from '../constants/routes';
 import { useContext, useState } from "react"
 import FirebaseContext from "../context/firebase"
 import UserContext from "../context/user";
+import useUser from "../customHooks/useUser";
 
 export default function Header() {
     const [error, setError] = useState('');
     const history = useHistory();
     const { user } = useContext(UserContext)
+    const { activeUser } = useUser();
+    console.log(activeUser);
 
     const { firebase } = useContext(FirebaseContext);
     // console.log(user)
@@ -41,10 +44,10 @@ export default function Header() {
                                         <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                                     </svg>
                                 </Link>
-                                <Link to={`/p/${user.displayName}`}>
+                                <Link to={`/p/${activeUser.username}`}>
                                     <img
                                         className="rounded-full h-8 w-8 flex mr-6 object-cover"
-                                        src={`/images/avatars/${user.displayName}.jpg`} alt={`${user.displayName} profile`} />
+                                        src={`/images/avatars/${activeUser.username}.jpg`} alt={`${activeUser.username} profile`} />
                                 </Link>
                                 <button
                                     aria-label="sign out"

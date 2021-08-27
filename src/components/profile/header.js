@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useUser from "../../customHooks/useUser";
 import Skeleton from 'react-loading-skeleton';
+import { toggleFollow } from '../../services/firebase'
 
 export default function Header({
     username,
@@ -17,9 +18,10 @@ export default function Header({
     const activeBtn = user.username && user.username !== username;
 
     const handleToggleFollow = async () => {
-        setIsFollowingProfile(prev => !prev);
-        setFollowerCount({ followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1 });
-        console.log('hello')
+        setIsFollowingProfile(prev => !prev)
+        setFollowerCount({ followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1 })
+
+        await toggleFollow(isFollowingProfile, user.docId, profileDocId, profileUserId, user.userId)
     }
 
     return (
