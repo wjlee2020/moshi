@@ -3,9 +3,10 @@ import useFollowedUsersPhotos from '../customHooks/useFollowedUsersPhotos';
 import Post from './post';
 
 export default function Timeline() {
-    const { photos } = useFollowedUsersPhotos();
-    console.log(photos)
-    // const photos = null;
+    // const { photos } = useFollowedUsersPhotos();
+    // console.log(photos)
+    // create protected routes
+    const photos = null;
 
     return (
         <div className="container col-span-2">
