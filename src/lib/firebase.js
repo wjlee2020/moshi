@@ -2,8 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-import { seedDatabase } from "../seed";
-
 const config = {
     apiKey: "AIzaSyDA62aLldlfa_lrR-itOkZbE4Nl-34ktho",
     authDomain: "moshi-7e991.firebaseapp.com",
